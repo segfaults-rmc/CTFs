@@ -80,9 +80,9 @@ notice how we see 0x0f 0x0b  or 0x0b0f every 5 bytes...looks like the mechanism 
 
 ![](img/{2587E1DD-89E8-441A-B4A8-470838F76942}.png)
 
-Now lets go look at the vm_cpu function... you might have to tell ida to analyse it by pressing p. Its the function at address 0x5555555554ed.
+Now lets go look at the vm_cpu function... you might have to tell ida to analyse it by pressing `p`. Its the function at address 0x5555555554ed.
 
-right below the prologue, we can see that its making some checks on the variable at `rbp-53h` and leading to "illegal Opcode message"... lets rename this as the opcode. (use the k key to make it a stack variable and then the n key to rename it opcode)
+right below the prologue, we can see that its making some checks on the variable at `rbp-53h` and leading to "illegal Opcode message"... lets rename this as the opcode. (use the `k` key to make it a stack variable and then the `n` key to rename it opcode)
 
 ![](img/{00BD048F-5071-497B-992F-DE9675590AF8}.png)
 
@@ -103,6 +103,14 @@ At this point, I assume you know debugging so here is my best effort at understa
 ![](img/{03156DC0-E847-47E8-9AB8-FDDFE5CEBFB3}.png)
 
 Now reverse this algorithm to figure out how the password is checked against the cypher. See my comments in the excel sheet.
+
+### Some tips on debugging.
+
+sometimes you need to execute loops in the pseudocode and it involves hitting many instructions. This gets old quick so you can do multiple commands in gdb like so `python [gdb.execute('c') for x in range(12)]`
+
+You can also tell gdb not to catch the SIGILL. Just google this.
+
+Avoid getting bogged down on weird instructions like the jumps. you can just figure those out by debugging the pseudocode. I still do not really get how the jumps work but know where they ended up executing the pseudocode...
 
 ## cracking the password
 
