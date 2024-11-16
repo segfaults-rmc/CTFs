@@ -121,7 +121,7 @@ At this point, we can now reverse the algorithm and crack the password using a p
 
 cypher = [0xff,0x121,0x8d,0xcb,0xca,0x136,0x68,0x90,0xa5,0x113,0x40,0x60,0x78,0xc8,0xad,0xbb]
 
-alphabet = b"abcdefhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"
+alphabet = "abcdefhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"
 
 # find valid character combos
 password = ''
@@ -130,8 +130,7 @@ for i in range(0,len(cypher),2):
     for a in range(len(alphabet)):
         for b in range(len(alphabet)):
             if (a*3 + b*4) == cypher[i] and (a*5 + b*4) == cypher[i+1]:
-                password += chr(alphabet[a])
-                password += chr(alphabet[b])
+                password += alphabet[a] + alphabet[b]
 
 print(password)
 ```
