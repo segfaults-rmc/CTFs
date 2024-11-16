@@ -126,7 +126,6 @@ alphabet = "abcdefhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"
 # find valid character combos
 password = ''
 for i in range(0,len(cypher),2):
-    comb = []
     for a in range(len(alphabet)):
         for b in range(len(alphabet)):
             if (a*3 + b*4) == cypher[i] and (a*5 + b*4) == cypher[i+1]:
