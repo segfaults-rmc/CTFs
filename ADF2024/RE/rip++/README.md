@@ -42,11 +42,11 @@ The binary has no symbols and requires some time to name things using IDA.
 
 Now the fun begins...
 
-After some initial reversin of the main funtion, you can see its ingesting the password using scanf for a 16byte long string, it initializes the vm memory with some stuff and then compares the password with 16. if different than 16, it bails with "invalid input length". Otherwise it keeps executing.
+After some initial reversing of the main funtion, you can see its ingesting the password using scanf for a 16byte long string, it initializes the vm memory with some stuff and then compares the password with 16. if different than 16, it bails with "invalid input length". Otherwise it keeps executing.
 
 ![](img/{0F9839D1-78A4-4303-8792-CBB24BAFBEAB}.png)
 
-to the right you can see the copying of the password into a region of memory [unk_55555555B280 + 0xb00b*4] with the address now replaced with vm_ram.
+to the right you can see the copying of the password into a region of memory [unk_55555555B280 + 0xb00b*4] with the address now renamed `vm_ram`.
 
 to the left, you can see the setup of the signal based vm where its registering the `vm_cpu` function using `sigaction` to handle signal 4 which is the signal number of SIGILL triggered when an illegal instruction is executed.
 
@@ -68,11 +68,11 @@ Once done, we can then see this cypher being copied in the vm_ram + 0xc377*4. Wh
 
 ![](img/{894024F3-B082-4929-BC7D-90E033E7F029}.png)
 
-Going back to the main function, lets have a deeper look at this illegal instruction block and see what follows. Pressing the spacebar to go in list mode, it is clear that 
+Going back to the main function, lets have a deeper look at this illegal instruction block and see what follows. Pressing the spacebar to go in list mode, it is clear that IDA does not what to make of this so tried to disassemble a bit but quickly failed and just left it as raw data..., Lets fix this a bit by just undefining this crap.
 
 ![](img/{28919E98-A0F0-4CFD-BE72-7720E99FF2A3}.png)
 
-IDA does not what to make of this so tried to disassemble a bit but quickly failed and just left it as raw data..., Lets fix this a bit by just undefining this crap.
+
 
 ![](img/{86E3DB5D-7BC2-4A5C-A4D4-9399A1A4D7FB}.png)
 
@@ -82,7 +82,7 @@ notice how we see 0x0f 0x0b  or 0x0b0f every 5 bytes...looks like the mechanism 
 
 Now lets go look at the vm_cpu function... you might have to tell ida to analyse it by pressing p. Its the function at address 0x5555555554ed.
 
-right below the prologue, we can see that its making some cheks on the variable at `rbp-53h` and leading to "illegal Opcode message"... lets rename this as the opcode. (use the k key to make it a stack variable and then the n key to rename it opcode)
+right below the prologue, we can see that its making some checks on the variable at `rbp-53h` and leading to "illegal Opcode message"... lets rename this as the opcode. (use the k key to make it a stack variable and then the n key to rename it opcode)
 
 ![](img/{00BD048F-5071-497B-992F-DE9675590AF8}.png)
 
