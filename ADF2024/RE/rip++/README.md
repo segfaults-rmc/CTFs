@@ -119,34 +119,21 @@ At this point, we can now reverse the algorithm and crack the password using a p
 ```python
 #!/usr/bin/env python
 
-# extracted from the vm_ram_initialization
 cypher = [0xff,0x121,0x8d,0xcb,0xca,0x136,0x68,0x90,0xa5,0x113,0x40,0x60,0x78,0xc8,0xad,0xbb]
 
-# notice the missing g
 alphabet = b"abcdefhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"
 
 # find valid character combos
-combos = [] 
+password = ''
 for i in range(0,len(cypher),2):
     comb = []
     for a in range(len(alphabet)):
         for b in range(len(alphabet)):
             if (a*3 + b*4) == cypher[i] and (a*5 + b*4) == cypher[i+1]:
-                comb.append([a,b])
-            
-    combos.append(comb)
+                password += chr(alphabet[a])
+                password += chr(alphabet[b])
 
-# print all possible index pairs that satisfy the tests
-for cc in combos:
-    print(cc)
-
-# translate the indexes into characters
-password = []
-for [[a,b]] in combos:
-    password.append(chr(alphabet[a]))
-    password.append(chr(alphabet[b]))
-
-print(''.join(password))
+print(password)
 ```
 
 Finally do not forget the final satisfaction
